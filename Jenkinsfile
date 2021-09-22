@@ -19,7 +19,7 @@ node {
     }
     
     stage ('Aqua Scanner') {
-        aqua customFlags: '--layer-vulnerabilities', hideBase: false, hostedImage: 'dstubked/orders-nginx:60', localImage: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'fail', policies: '', register: true, registry: 'Docker Hub', showNegligible: false
+        aqua customFlags: '--layer-vulnerabilities', hideBase: false, hostedImage: "dstubked/orders-nginx:${env.BUILD_NUMBER}", localImage: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'fail', policies: '', register: true, registry: 'Docker Hub', showNegligible: false
     }
     /*stage ('Aqua Scanner') {
         aqua customFlags: '--layer-vulnerabilities', hideBase: false, hostedImage: '', localImage: 'dstubked/orders-nginx:$BUILD_NUMBER', locationType: 'local', notCompliesCmd: '', onDisallowed: 'fail', policies: '', register: true, registry: 'Docker Hub', showNegligible: false
@@ -28,7 +28,7 @@ node {
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
             /* Push into prod namespace
             app.push ("latest")
-            sh "docker push dstubked-docker.jfrog.io/orders-nginx-prod:good" */
+            sh "docker push dstubked/orders-nginx-prod:good" */
             app.push ("${env.BUILD_NUMBER}")
         }
     }
